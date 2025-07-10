@@ -84,7 +84,7 @@ function HeaderTitle() {
           animate={animation.show}
           transition={{ delay: 0.3 }}
         >
-          <span className={clsx("lowercase")}>初</span>{" "}
+          <span className={clsx("lowercase")}>初闻不知曲中意</span>{" "}
 {/*           <strong
             className={clsx(
               "font-bold text-lg text-slate-700",
@@ -93,7 +93,7 @@ function HeaderTitle() {
           >
             
           </strong>{" "} */}
-          <span>闻不知曲中意</span>{" "}
+{/*           <span></span>{" "} */}
 {/*           <strong
             className={clsx(
               "font-bold text-lg text-slate-700",
@@ -102,7 +102,7 @@ function HeaderTitle() {
           >
             
           </strong>{" "} */}
-          <span className={clsx("block")}>再闻已是曲中人！</span>
+          <span className={clsx("block")}>再听已是曲中人！</span>
         </m.h1>
       </span>
     </div>
