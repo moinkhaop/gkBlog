@@ -291,39 +291,6 @@ function Footer() {
         >
           <div className={clsx("font-semibold")}>
             &copy; {dayjs().format("YYYY")}, 云上月枫下叶 版权所有
-            /*
-            <div>
-              <span>
-                ICP:
-                <a
-                  href="https://beian.miit.gov.cn/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ margin: "0 5px" }}
-                >
-                  陕ICP备2024050194号-1
-                </a>
-              </span>
-              <br />
-              <span style={{ display: "inline-flex", alignItems: "center" }}>
-                公安:
-                <Image
-                  src="https://cdn.qladgk.com/images/beian.png"
-                  alt="备案图标"
-                  width={15}
-                  height={15}
-                  style={{ margin: "0 5px" }}
-                />
-                <a
-                  href="https://beian.mps.gov.cn/#/query/webSearch?code=61072102000193"
-                  rel="noreferrer"
-                  target="_blank"
-                >
-                  陕公网安备61072102000193
-                </a>
-              </span>
-            </div>
-            */
           </div>
           <div className={clsx("text-slate-500", "dark:text-slate-400")}>
             <LastUpdate />
