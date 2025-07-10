@@ -85,23 +85,23 @@ function HeaderTitle() {
           transition={{ delay: 0.3 }}
         >
           <span className={clsx("lowercase")}>初</span>{" "}
-          <strong
+{/*           <strong
             className={clsx(
               "font-bold text-lg text-slate-700",
               "dark:text-slate-300"
             )}
           >
             
-          </strong>{" "}
+          </strong>{" "} */}
           <span>闻不知曲中意</span>{" "}
-          <strong
+{/*           <strong
             className={clsx(
               "font-bold text-lg text-slate-700",
               "dark:text-slate-300"
             )}
           >
             
-          </strong>{" "}
+          </strong>{" "} */}
           <span className={clsx("block")}>再闻已是曲中人！</span>
         </m.h1>
       </span>
