@@ -290,7 +290,7 @@ function Footer() {
           )}
         >
           <div className={clsx("font-semibold")}>
-            &copy; {dayjs().format("YYYY")}, 云上月枫下叶 版权所有
+            &copy; {dayjs().format("YYYY")}, ehhx.live 版权所有
           </div>
           <div className={clsx("text-slate-500", "dark:text-slate-400")}>
             <LastUpdate />
