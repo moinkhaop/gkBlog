@@ -132,8 +132,8 @@ function FooterDescription() {
         关于我
       </div>
       <p className={clsx("mb-4 font-normal leading-relaxed")}>
-        我是 qlAD, 一名小小的 <strong>计算机爱好者</strong>{" "}
-        ，致力于探索能改变世界的代码。
+        我是 ehhx, 一名面向CV编程的 <strong>计算机爱好者</strong>{" "}
+        ，但愿码心似我心。
       </p>
       <ul className={clsx("-ml-2 flex gap-1")}>
         <li>
@@ -290,7 +290,8 @@ function Footer() {
           )}
         >
           <div className={clsx("font-semibold")}>
-            &copy; {dayjs().format("YYYY")}, qlADgk.com 版权所有
+            &copy; {dayjs().format("YYYY")}, 云上月枫下叶 版权所有
+            /*
             <div>
               <span>
                 ICP:
@@ -322,6 +323,7 @@ function Footer() {
                 </a>
               </span>
             </div>
+            */
           </div>
           <div className={clsx("text-slate-500", "dark:text-slate-400")}>
             <LastUpdate />
