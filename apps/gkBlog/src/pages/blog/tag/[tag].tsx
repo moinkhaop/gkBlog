@@ -30,7 +30,7 @@ export default function TagPage({ tag, posts }: TagPageProps) {
   const enhancedPosts = useMemo(
     () =>
       posts.map(({ slug, frontMatter }) => {
-        const { views = 0, shares = 0 } = data[slug]?.meta || {};
+        const { views = 0, shares = 0 } = (data && data[slug]?.meta) || {};
         return { slug, views, shares, frontMatter };
       }),
     [posts, data]
@@ -198,7 +198,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const tagsArray = Array.from(
     new Set(posts.flatMap((post) => post.frontMatter.tags))
   );
-  const paths = tagsArray.map((tag) => ({ params: { tag } }));
+
+  // Filter out inconsistent tag names to prevent build errors
+  const filteredTags = tagsArray.filter((tag) => tag !== "Github");
+  const paths = filteredTags.map((tag) => ({ params: { tag } }));
 
   return { paths, fallback: false };
 };

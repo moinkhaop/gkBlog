@@ -1,0 +1,156 @@
+---
+title: 给Github添加SSH密钥
+description: 本文将介绍如何给Github添加SSH密钥，以及在配置过程中可能遇到的问题和解决方法。
+date: "2025-07-10"
+lang: zh
+tags:
+  - Git
+  - GitHub
+category: 技术
+cover: https://cdn.qladgk.com/images/20250508161225090.png
+---
+
+import Image from "@/components/mdx/Image";
+
+<Image
+  src="https://cdn.qladgk.com/images/20250508161225090.png"
+  alt="cover"
+  width={999}
+  height={527}
+  isArticleImage={true}
+/>
+
+当前，通过Git在本地仓库和远程仓库（如Github）之间进行操作，已不再支持密码验证，而是转为通过更安全的SSH密钥验证方式。
+
+因此，本文将介绍如何生成SSH密钥以及将其添加到Github中，此外也会介绍配置过程中常见问题的解决方法。
+
+## 生成SSH密钥
+
+首先在本地机器上打开终端，输入以下命令生成SSH密钥：
+
+```bash
+ssh-keygen -t ed25519 -C "your_github_email@example.com"
+# -C后面的是自定义的密钥注释/标签，这里一般输入自己的邮箱
+
+# -----------------------------------------------
+# 运行上述命令，会询问你是否自定义密钥名字/路径，以及是否需要给该密钥添加密码，敲回车是跳过
+# Generating public/private ed25519 key pair.
+# Enter file in which to save the key (/home/xxx/.ssh/id_ed25519): github_auth
+# Enter passphrase (empty for no passphrase):
+# Enter same passphrase again:
+# Your identification has been saved in github_auth.
+# Your public key has been saved in github_auth.pub.
+# The key fingerprint is: xxx
+# The key's randomart image is: xxx
+# -----------------------------------------------
+
+# ed25519是目前最安全、加解密速度最快的key类型。
+# 但有些旧版本的SSH还不支持ed25519算法，这时候可以用rsa算法。
+# 因此，有ed25519就用ed25519，没有就用rsa。
+
+ssh-keygen -t rsa -b 4096 -C "your_github_email@example.com"
+```
+
+## 添加密钥到ssh-agent（Optional）
+
+如果是自定义了密钥名字（例如我上面将密钥名字从默认的id_ed25519修改为github_auth），此时就需要自己手动添加密钥到SSH认证代理ssh-agent中。当然，如果没有自定义名字，可以不进行这一步操作，默认的名字是默认自动添加到SSH认证代理中的。
+
+首先，在后台启动ssh-agent：
+
+```bash
+eval "$(ssh-agent -s)"
+# 输出：Agent pid 59566
+```
+
+然后，把之前生成的SSH密钥添加到ssh-agent中：
+
+```bash
+ssh-add ~/.ssh/github_auth
+# 输出：Identity added: github_auth (xxxx)
+```
+
+## 添加密钥到Github账户
+
+生成SSH密钥后，复制公钥内容到自己的Github账户中。具体地，点击Github右上角账户图标→Settings→SSH and GPG keys→New SSH key，在Key一栏粘贴公钥内容，在Title一栏设定这个SSH密钥的标识：
+
+```bash
+cat ~/.ssh/github_auth.pub
+# 把终端输出的内容复制到Github账户中
+```
+
+## 验证
+
+执行完上述两步操作后，正常情况下已经配置成功了，此时可以验证一下：
+
+```bash
+ssh -T git@github.com
+# 如果输出以下内容，则表示配置成功，此时即可直接进行任何git操作。
+# Hi xxx! You've successfully authenticated, but GitHub does not provide shell access.
+```
+
+## 相关问题解决
+
+### Permission denied
+
+如果在配置完成后，通过ssh连接github时，报错：
+
+```
+Permission denied (publickey).
+```
+
+大概率是因为：自定义了密钥名字/路径，但没有执行第二个步骤将密钥添加到SSH认证代理中。
+
+可以输入以下命令验证是否生成了密钥以及是否有添加到SSH认证代理中，如果没有就按第二步骤操作一遍。
+
+```bash
+ssh-add -l -E sha256
+# 如果配置失败，则没有任何输出；如果配置成功，则会输出类似以下内容
+# 2048 SHA256:274ffWxgaxq/tSINAykStUL7XWyRNcRTlcST1Ei7gBQ /Users/USERNAME/.ssh/id_rsa (RSA)
+```
+
+除了通过ssh-add的方式外，也可以通过设置config文件让SSH认证代理能找到这个密钥文件，从而解决这个问题：
+
+```bash
+vim ~/.ssh/config
+# 打开（如果没有就创建一个）config文件，并输入以下内容。
+# 此外，需要注意，config文件的权限需是600。
+```
+
+```
+Host github.com
+HostName github.com
+IdentityFile ~/.ssh/github_auth # 这里输入你的密钥路径
+```
+
+### Support for password authentication was removed ...
+
+在配置好SSH后，进行git操作时，仍要求输密码，即使输入了正确的账户和密码，还是报错：
+
+```
+remote: Support for password authentication was removed on August 13, 2021. Please use a personal access token instead.
+remote: Please see https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/ for more information.
+fatal: Authentication failed for 'https://github.com/xxx/xxx.git/'
+```
+
+出错的原因在于：本地仓库在clone时使用的是HTTPS URL，故该仓库此时的remote协议会是HTTPS协议，然而SSH密钥连接只支持SSH URL，不支持HTTPS URL，故会要求输账户密码。
+
+此时，通过以下命令可以查看到仓库的remote协议是HTTPS协议：
+
+```bash
+git config --get remote.origin.url
+# 如果输出类似以下内容，则说明remote协议是HTTPS协议
+# https://github.com/xxx/xxx.git
+
+# 也可以查看仓库内的.git/config文件，查看url是git协议还是https协议。
+# [remote "origin"]
+# url = https://github.com:YOUR_ACCOUNT/YOUR_PROJECT.git
+# fetch = +refs/heads/_:refs/remotes/origin/_
+```
+
+因此，需要将remote协议从HTTPS协议修改为GIT协议。在本地仓库路径下输入以下命令：
+
+```bash
+git remote set-url origin git@github.com:xxx/xxx.git
+```
+
+此时，再进行git的pull/push操作就不再需要输密码了，直接可以通过SSH密钥认证。

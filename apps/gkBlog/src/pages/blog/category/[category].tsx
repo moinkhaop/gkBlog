@@ -30,7 +30,7 @@ export default function CategoryPage({ category, posts }: CategoryPageProps) {
   const enhancedPosts = useMemo(
     () =>
       posts.map(({ slug, frontMatter }) => {
-        const { views = 0, shares = 0 } = data[slug]?.meta || {};
+        const { views = 0, shares = 0 } = (data && data[slug]?.meta) || {};
         return { slug, views, shares, frontMatter };
       }),
     [posts, data]

@@ -26,17 +26,17 @@ export const getAllContentMeta = async (): Promise<
 
   return result && result.length > 0
     ? result.reduce(
-        (acc, cur) => ({
-          ...acc,
-          [cur.slug]: {
-            meta: {
-              views: cur._count.views,
-              shares: cur._count.shares,
-            },
+      (acc, cur) => ({
+        ...acc,
+        [cur.slug]: {
+          meta: {
+            views: cur._count.views,
+            shares: cur._count.shares,
           },
-        }),
-        {} as Record<string, TContentMeta>,
-      )
+        },
+      }),
+      {} as Record<string, TContentMeta>,
+    )
     : {};
 };
 
@@ -196,10 +196,14 @@ export const getReactions = async (slug: string): Promise<TReaction> => {
     }
   ])`;
 
-  // transform result
-  const transformed = await jsonata(expression).evaluate(result);
-
-  return transformed;
+  try {
+    // transform result
+    const transformed = await jsonata(expression).evaluate(result);
+    return transformed || { CLAPPING: 0, THINKING: 0, AMAZED: 0 };
+  } catch (error) {
+    // Return default values if transformation fails
+    return { CLAPPING: 0, THINKING: 0, AMAZED: 0 };
+  }
 };
 
 export const getSectionMeta = async (
@@ -246,10 +250,14 @@ export const getSectionMeta = async (
       }
     }`;
 
-  // transform result
-  const transformed = await jsonata(expression).evaluate(result);
-
-  return transformed;
+  try {
+    // transform result
+    const transformed = await jsonata(expression).evaluate(result);
+    return transformed || {};
+  } catch (error) {
+    // Return empty object if transformation fails
+    return {};
+  }
 };
 
 export const getReactionsBy = async (
@@ -280,10 +288,14 @@ export const getReactionsBy = async (
     }
   ])`;
 
-  // transform result
-  const transformed = await jsonata(expression).evaluate(result);
-
-  return transformed;
+  try {
+    // transform result
+    const transformed = await jsonata(expression).evaluate(result);
+    return transformed || { CLAPPING: 0, THINKING: 0, AMAZED: 0 };
+  } catch (error) {
+    // Return default values if transformation fails
+    return { CLAPPING: 0, THINKING: 0, AMAZED: 0 };
+  }
 };
 
 export const setReaction = async ({

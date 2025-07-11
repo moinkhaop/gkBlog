@@ -42,7 +42,7 @@ function Counter({ count }: CounterProps) {
       <span
         className={clsx(
           "flex h-5 items-center font-mono text-sm font-bold text-slate-600",
-          "dark:text-slate-300",
+          "dark:text-slate-300"
         )}
       >
         0
@@ -52,7 +52,7 @@ function Counter({ count }: CounterProps) {
     <m.span
       className={clsx(
         "flex flex-col font-mono text-sm font-bold text-slate-600",
-        "dark:text-slate-300",
+        "dark:text-slate-300"
       )}
       animate={controls}
     >
@@ -70,7 +70,7 @@ function ReactionCounter({ count, children = null }: ReactionCounterProps) {
     <div
       className={clsx(
         "relative flex h-6 items-center gap-1 overflow-hidden rounded-full bg-slate-200 py-1 px-2",
-        "dark:bg-[#1d263a]",
+        "dark:bg-[#1d263a]"
       )}
     >
       {children}
@@ -97,20 +97,25 @@ function Reactions({
   // current active section
   const { currentSection } = useScrollSpy();
 
-  const {
-    isLoading,
-    data: {
-      meta: {
-        views,
-        shares,
-        reactions,
-        reactionsDetail: { THINKING, CLAPPING, AMAZED },
-      },
-      metaUser: { reactionsDetail: user },
-    },
-    addShare,
-    addReaction,
-  } = useInsight({ slug, contentType, contentTitle, countView: withCountView });
+  const { isLoading, data, addShare, addReaction } = useInsight({
+    slug,
+    contentType,
+    contentTitle,
+    countView: withCountView,
+  });
+
+  // Safely extract data with fallback values
+  const views = data?.meta?.views ?? 0;
+  const shares = data?.meta?.shares ?? 0;
+  const reactions = data?.meta?.reactions ?? 0;
+  const THINKING = data?.meta?.reactionsDetail?.THINKING ?? 0;
+  const CLAPPING = data?.meta?.reactionsDetail?.CLAPPING ?? 0;
+  const AMAZED = data?.meta?.reactionsDetail?.AMAZED ?? 0;
+  const user = data?.metaUser?.reactionsDetail ?? {
+    THINKING: 0,
+    CLAPPING: 0,
+    AMAZED: 0,
+  };
 
   const CLAPPING_QUOTA = MAX_REACTIONS_PER_SESSION - user.CLAPPING;
   const THINKING_QUOTA = MAX_REACTIONS_PER_SESSION - user.THINKING;
@@ -136,7 +141,7 @@ function Reactions({
     <m.div
       className={clsx(
         "border-divider-light pointer-events-auto relative flex items-center justify-between rounded-xl border p-4 ",
-        "dark:border-divider-dark",
+        "dark:border-divider-dark"
       )}
       initial={{
         y: 16,
@@ -148,7 +153,7 @@ function Reactions({
       <div
         className={clsx(
           "absolute inset-0 rounded-xl bg-white/70 backdrop-blur",
-          "dark:bg-slate-900/80",
+          "dark:bg-slate-900/80"
         )}
       />
       <div className={clsx("flex items-center gap-4")}>

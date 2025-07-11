@@ -34,7 +34,7 @@ function TagCloud({ tags }: { tags: string[] }) {
       {sortedTags.map(({ name, count }) => (
         <a
           key={name}
-          href={`/blog/tag/${encodeURIComponent(name.toLowerCase())}`}
+          href={`/blog/tag/${encodeURIComponent(name)}`}
           className="inline-block transition-transform hover:scale-105"
         >
           <div className="tags-shields flex text-sm overflow-hidden rounded-md">

@@ -26,21 +26,21 @@ export default async function handler(
       const reactionsDetailUser = await getReactionsBy(slug, sessionId);
 
       const reactionsSum =
-        reactionsDetail.AMAZED +
-        reactionsDetail.CLAPPING +
-        reactionsDetail.THINKING;
+        (reactionsDetail?.AMAZED || 0) +
+        (reactionsDetail?.CLAPPING || 0) +
+        (reactionsDetail?.THINKING || 0);
 
       res.status(200).json({
         meta: {
-          shares: meta.shares,
-          views: meta.views,
+          shares: meta?.shares || 0,
+          views: meta?.views || 0,
           reactions: reactionsSum,
-          reactionsDetail,
+          reactionsDetail: reactionsDetail || { CLAPPING: 0, THINKING: 0, AMAZED: 0 },
         },
         metaUser: {
-          reactionsDetail: reactionsDetailUser,
+          reactionsDetail: reactionsDetailUser || { CLAPPING: 0, THINKING: 0, AMAZED: 0 },
         },
-        metaSection,
+        metaSection: metaSection || {},
       });
     } else {
       res.status(405).json({ message: "Method Not Allowed" });

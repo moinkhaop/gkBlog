@@ -23,8 +23,6 @@ jobs:
           mkdir -p apps/gkBlog
           echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> apps/gkBlog/.env.local
           echo "SALT_IP_ADDRESS=${{ secrets.SALT_IP_ADDRESS }}" >> apps/gkBlog/.env.local
-          echo "NEXT_PUBLIC_BAIDU_TONGJI=${{ secrets.NEXT_PUBLIC_BAIDU_TONGJI }}" >> apps/gkBlog/.env.local
-          echo "NEXT_PUBLIC_GOOGLE_ID=${{ secrets.NEXT_PUBLIC_GOOGLE_ID }}" >> apps/gkBlog/.env.local
           echo "NEXT_PUBLIC_CLARITY_TAG_ID=${{ secrets.NEXT_PUBLIC_CLARITY_TAG_ID }}" >> apps/gkBlog/.env.local
           echo "NEXT_PUBLIC_TWIKOO_ENVID"="${{ secrets.NEXT_PUBLIC_TWIKOO_ENVID }}" >> apps/gkBlog/.env.local
 

@@ -36,9 +36,8 @@ function BlogContents({ posts }: BlogContentsProps) {
   const postsPreview: Array<TPostPreview> = [];
 
   posts.forEach(({ slug, frontMatter }) => {
-    const { shares, views } = data[slug]
-      ? data[slug].meta
-      : { shares: 0, views: 0 };
+    const { shares = 0, views = 0 } =
+      data && data[slug] ? data[slug].meta : { shares: 0, views: 0 };
     const preview: TPostPreview = {
       slug,
       views,

@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:clean": "rimraf .next && next build",
     "start": "next start",
     "lint": "next lint",
     "lint:all": "concurrently \"yarn:lint\" \"yarn:lint:types\" \"yarn:lint:style\"",
@@ -12,7 +13,8 @@
     "lint:style": "prettier --check .",
     "analyze": "cross-env ANALYZE=true yarn build",
     "postbuild": "next-sitemap",
-    "db:generate": "prisma generate"
+    "db:generate": "prisma generate",
+    "clean": "rimraf .next"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.2",
@@ -68,6 +70,7 @@
     "postcss": "^8.5.3",
     "postcss-import": "^16.1.0",
     "prisma": "^6.7.0",
+    "rimraf": "^5.0.10",
     "tailwindcss": "^3.4.17",
     "tsconfig": "workspace:*",
     "typescript": "^5.8.3"

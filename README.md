@@ -131,8 +131,6 @@ flowchart TB
    ```yaml
    DATABASE_URL = your-database-connection-string
    SALT_IP_ADDRESS = super-secret
-   NEXT_PUBLIC_BAIDU_TONGJI = xxxxxxxxxxxxxx
-   NEXT_PUBLIC_GOOGLE_ID = xxxxxxxxxxxxxx
    NEXT_PUBLIC_CLARITY_TAG_ID = xxxxxxxxxxxxxx
    NEXT_PUBLIC_TWIKOO_ENVID = xxxxxxxxxxxxxx
    ```
@@ -165,7 +163,7 @@ flowchart TB
 
 - **支持 Vercel 一键部署（海外用户推荐）**
 
-  [![Deploy with Vercel](https://vercel.com/button?utm_source=busiyi&utm_campaign=oss)](https://vercel.com/new/clone?utm_source=busiyi&utm_campaign=oss&repository-url=https%3A%2F%2Fgithub.com%2FqlAD%2FgkBlog&env=DATABASE_URL%2CSALT_IP_ADDRESS%2CNEXT_PUBLIC_BAIDU_TONGJI%2CNEXT_PUBLIC_GOOGLE_ID)
+  [![Deploy with Vercel](https://vercel.com/button?utm_source=busiyi&utm_campaign=oss)](https://vercel.com/new/clone?utm_source=busiyi&utm_campaign=oss&repository-url=https%3A%2F%2Fgithub.com%2FqlAD%2FgkBlog&env=DATABASE_URL%2CSALT_IP_ADDRESS)
 
 - **使用 Docker 部署（国内服务器推荐）**
 
@@ -227,8 +225,6 @@ flowchart TB
 | ------------------------ | ------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
 | BAIDU_API_URL            | 百度资源搜索 API 链接    | [https://ziyuan.baidu.com/](https://ziyuan.baidu.com/)                                                                     |
 | BING_API_KEY             | 必应 IndexNow 密钥       | [https://www.bing.com/indexnow/getstarted/](https://www.bing.com/indexnow/getstarted/)                                     |
-| NEXT_PUBLIC_BAIDU_TONGJI | 百度统计代码             | [https://tongji.baidu.com/](https://tongji.baidu.com/)                                                                     |
-| NEXT_PUBLIC_GOOGLE_ID    | 谷歌分析代码             | [https://analytics.google.com/analytics/web/](https://analytics.google.com/analytics/web/)                                 |
 | ALIYUN_REGISTRY          | 阿里云容器镜像仓库地址   | [https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors](https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors) |
 | DOCKER_USERNAME          | 阿里云容器镜像仓库用户名 | [https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors](https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors) |
 | DOCKER_PASSWORD          | 阿里云容器镜像仓库密码   | [https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors](https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors) |
