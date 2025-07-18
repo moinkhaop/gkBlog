@@ -2,7 +2,7 @@
   "name": "gkblog",
   "private": true,
   "scripts": {
-    "build": "prisma generate && echo '--- Searching for ContentType in generated client ---' && (grep 'ContentType' ./node_modules/.prisma/client/index.d.ts || echo '--- ContentType NOT FOUND in generated file ---') && next build",
+    "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
     "clean": "turbo run clean",
