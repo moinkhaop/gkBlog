@@ -1,6 +1,4 @@
-"use client";
-
-import type { ContentType } from "@/lib/prisma";
+import { ContentType } from "@prisma/client";
 import clsx from "clsx";
 import { m, useAnimationControls } from "framer-motion";
 import { useRouter } from "next/router";
