@@ -1,3 +1,5 @@
+"use client";
+
 import { ContentType } from "@prisma/client";
 import clsx from "clsx";
 import { m, useAnimationControls } from "framer-motion";
