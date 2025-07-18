@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "next build",
     "build:clean": "rimraf .next && next build",
     "start": "next start",
     "lint": "next lint",
@@ -12,6 +12,7 @@
     "lint:types": "tsc --noEmit",
     "lint:style": "prettier --check .",
     "analyze": "cross-env ANALYZE=true yarn build",
+    "postinstall": "prisma generate",
     "postbuild": "next-sitemap",
     "db:generate": "prisma generate",
     "clean": "rimraf .next"

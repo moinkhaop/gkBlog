@@ -1,0 +1,5 @@
+{
+  "buildCommand": "turbo run build --filter=gkblog",
+  "installCommand": "pnpm install",
+  "outputDirectory": "apps/gkBlog/.next"
+}
