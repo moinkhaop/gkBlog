@@ -4,11 +4,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["db:generate", "^build"],
-      "outputs": ["dist/**", ".next/**"],
-      "env": [
-        "DATABASE_URL",
-        "SALT_IP_ADDRESS"
-      ]
+      "outputs": ["dist/**", ".next/**"]
     },
     "clean": {
       "cache": false
