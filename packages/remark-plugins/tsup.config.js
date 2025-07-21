@@ -9,5 +9,6 @@ export default defineConfig((options) => {
     sourcemap: production ? false : "inline",
     minify: production,
     clean: true,
+    dts: true, // 生成 TypeScript 声明文件
   };
 });
