@@ -1,5 +1,6 @@
 {
   "framework": "nextjs",
-  "buildCommand": "npm pkg delete dependencies.rehype-plugins && npm install && next build",
+  "buildCommand": "pnpm install && pnpm build",
+  "installCommand": "pnpm install",
   "outputDirectory": ".next"
 }
