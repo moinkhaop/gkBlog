@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "cd apps/gkBlog && next build",
+    "build": "next build",
     "build:clean": "rimraf .next && next build",
     "start": "next start",
     "lint": "next lint",
@@ -77,6 +77,6 @@
     "typescript": "^5.8.3"
   },
   "engines": {
-    "node": "^22.0.0"
+    "node": "22.x"
   }
 }

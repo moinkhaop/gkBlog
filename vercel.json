@@ -1,5 +1,7 @@
 {
   "buildCommand": "turbo run build --filter=gkblog",
   "installCommand": "pnpm install",
-  "outputDirectory": "apps/gkBlog/.next"
+  "outputDirectory": "apps/gkBlog/.next",
+  "framework": "nextjs",
+  "ignoreCommand": "git diff --quiet HEAD^ HEAD ./"
 }
