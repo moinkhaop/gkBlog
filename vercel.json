@@ -1,11 +1,5 @@
 {
   "buildCommand": "turbo run build --filter=gkblog",
   "installCommand": "pnpm install",
-  "outputDirectory": "apps/gkBlog/.next",
-  "framework": "nextjs",
-  "functions": {
-    "apps/gkBlog/src/pages/api/**/*.ts": {
-      "runtime": "nodejs22.x"
-    }
-  }
+  "outputDirectory": "apps/gkBlog/.next"
 }
