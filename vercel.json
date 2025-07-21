@@ -3,5 +3,9 @@
   "installCommand": "pnpm install",
   "outputDirectory": "apps/gkBlog/.next",
   "framework": "nextjs",
-  "ignoreCommand": "git diff --quiet HEAD^ HEAD ./"
+  "functions": {
+    "apps/gkBlog/src/pages/api/**/*.ts": {
+      "runtime": "nodejs22.x"
+    }
+  }
 }
