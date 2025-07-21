@@ -1,5 +1,5 @@
 {
   "framework": "nextjs",
-  "buildCommand": "npm run build",
+  "buildCommand": "cd apps/gkBlog && npm install rehype-plugins && next build",
   "outputDirectory": ".next"
 }
