@@ -15,7 +15,8 @@
     "postinstall": "prisma generate",
     "postbuild": "next-sitemap",
     "db:generate": "prisma generate",
-    "clean": "rimraf .next"
+    "clean": "rimraf .next",
+    "vercel-build": "npm install rehype-plugins && next build"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.2",
