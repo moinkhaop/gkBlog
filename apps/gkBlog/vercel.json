@@ -1,6 +1,6 @@
 {
   "framework": "nextjs",
-  "buildCommand": "npx prisma generate && pnpm build",
+  "buildCommand": "npx prisma generate && turbo build --filter=gkblog",
   "installCommand": "pnpm install",
   "outputDirectory": ".next"
 }
