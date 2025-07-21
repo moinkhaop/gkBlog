@@ -14,7 +14,7 @@
     "analyze": "cross-env ANALYZE=true yarn build",
     "postinstall": "prisma generate",
     "postbuild": "next-sitemap",
-    "db:generate": "npx prisma generate --skip-generate",
+    "db:generate": "npx prisma generate",
     "clean": "rimraf .next"
   },
   "dependencies": {
