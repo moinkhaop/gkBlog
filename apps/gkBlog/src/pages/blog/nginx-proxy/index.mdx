@@ -1,0 +1,110 @@
+---
+title: 基于Linux Shell的Nginx万能反代神器
+description: 本文将介绍如何使用一个Linux Shell脚本，实现Nginx的万能反代功能。
+date: "2025-07-10"
+lang: zh
+tags:
+  - Git
+  - GitHub
+category: 技术
+cover:https://qiniu.tuguo.me/2025-07/1753449828381_1753449828401.png
+---
+
+import Image from "@/components/mdx/Image";
+
+<Image
+  src="https://qiniu.tuguo.me/2025-07/1753449828381_1753449828401.png"
+  alt="cover"
+  width={999}
+  height={527}
+  isArticleImage={true}
+/>
+
+经过不断迭代优化，基于 Linux Shell 的 Nginx 万能反代神器迎来新功能！
+
+本版本最大亮点是新增 Docker容器端口访问自动开启/关闭功能，让你的反代服务安全升级，端口不再暴露，杜绝任何形式的偷窃行为，真正做到安全、稳定、简单。
+
+[image366×366 6.42 KB](https://linux.do/uploads/default/original/4X/9/2/3/9237dd696b0c64dff6151643eeb2adabe86fcec8.webp)
+
+![image](https://linux.do/uploads/default/original/4X/9/2/3/9237dd696b0c64dff6151643eeb2adabe86fcec8.webp)
+
+=================
+
+## 为什么要关闭端口访问？
+
+传统的 Nginx 反代虽然方便，但会导致后端服务端口暴露在公网，极易被扫描和攻击。
+
+现在利用iptables规则自动封禁端口，只允许反代服务器访问，阻止直接IP+端口访问，极大提升安全性。
+
+=================
+
+## 新功能演示
+
+反向代理部署一键开启，自动生成反代配置
+
+自动检测容器绑定端口，自动为容器封禁外部端口访问，只允许反代IP访问
+
+支持批量端口关闭，避免手动配置iptables繁琐出错
+
+=================
+
+## 关键代码片段
+
+```
+
+# 查找占用端口的Docker容器名
+find_container_by_host_port() {
+	port="$1"
+	docker_name=$(docker ps --format '{{.ID}} {{.Names}}' | while read id name; do
+		if docker port "$id" | grep -q ":$port"; then
+			echo "$name"
+			break
+		fi
+	done)
+}
+
+# 关闭端口访问
+close_port() {
+	local ports=($@)
+	install iptables
+	for port in "${ports[@]}"; do
+		iptables -D INPUT -p tcp --dport $port -j ACCEPT 2>/dev/null
+		iptables -D INPUT -p udp --dport $port -j ACCEPT 2>/dev/null
+		if ! iptables -C INPUT -p tcp --dport $port -j DROP 2>/dev/null; then
+			iptables -I INPUT 1 -p tcp --dport $port -j DROP
+		fi
+		if ! iptables -C INPUT -p udp --dport $port -j DROP 2>/dev/null; then
+			iptables -I INPUT 1 -p udp --dport $port -j DROP
+			echo "已关闭端口 $port"
+		fi
+	done
+	save_iptables_rules
+}
+
+# 针对docker容器封禁端口，仅允许指定IP访问
+block_container_port() {
+	local container_name_or_id=$1
+	local allowed_ip=$2
+	local container_ip=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$container_name_or_id")
+	install iptables
+	iptables -I DOCKER-USER -p tcp -d "$container_ip" -j DROP
+	iptables -I DOCKER-USER -p tcp -s "$allowed_ip" -d "$container_ip" -j ACCEPT
+	iptables -I DOCKER-USER -p tcp -s 127.0.0.0/8 -d "$container_ip" -j ACCEPT
+	iptables -I DOCKER-USER -m state --state ESTABLISHED,RELATED -d "$container_ip" -j ACCEPT
+	echo "已阻止IP+端口访问该服务"
+	save_iptables_rules
+}
+
+```
+
+=================
+
+## 快速开始
+
+```scss
+
+bash <(curl -sL kejilion.sh) fd
+
+```
+
+然后根据提示输入域名、目标IP、端口，自动帮你完成反代配置及端口封禁！

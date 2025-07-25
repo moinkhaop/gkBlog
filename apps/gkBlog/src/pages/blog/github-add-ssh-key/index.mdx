@@ -7,13 +7,13 @@ tags:
   - Git
   - GitHub
 category: 技术
-cover: https://cdn.qladgk.com/images/20250508161225090.png
+cover:https://qiniu.tuguo.me/2025-07/1753449236721_1753449236736.png
 ---
 
 import Image from "@/components/mdx/Image";
 
 <Image
-  src="https://cdn.qladgk.com/images/20250508161225090.png"
+  src="https://qiniu.tuguo.me/2025-07/1753449236721_1753449236736.png"
   alt="cover"
   width={999}
   height={527}
@@ -28,7 +28,7 @@ import Image from "@/components/mdx/Image";
 
 首先在本地机器上打开终端，输入以下命令生成SSH密钥：
 
-```bash
+```
 ssh-keygen -t ed25519 -C "your_github_email@example.com"
 # -C后面的是自定义的密钥注释/标签，这里一般输入自己的邮箱
 
@@ -57,14 +57,14 @@ ssh-keygen -t rsa -b 4096 -C "your_github_email@example.com"
 
 首先，在后台启动ssh-agent：
 
-```bash
+```
 eval "$(ssh-agent -s)"
 # 输出：Agent pid 59566
 ```
 
 然后，把之前生成的SSH密钥添加到ssh-agent中：
 
-```bash
+```
 ssh-add ~/.ssh/github_auth
 # 输出：Identity added: github_auth (xxxx)
 ```
@@ -73,7 +73,7 @@ ssh-add ~/.ssh/github_auth
 
 生成SSH密钥后，复制公钥内容到自己的Github账户中。具体地，点击Github右上角账户图标→Settings→SSH and GPG keys→New SSH key，在Key一栏粘贴公钥内容，在Title一栏设定这个SSH密钥的标识：
 
-```bash
+```
 cat ~/.ssh/github_auth.pub
 # 把终端输出的内容复制到Github账户中
 ```
@@ -82,7 +82,7 @@ cat ~/.ssh/github_auth.pub
 
 执行完上述两步操作后，正常情况下已经配置成功了，此时可以验证一下：
 
-```bash
+```
 ssh -T git@github.com
 # 如果输出以下内容，则表示配置成功，此时即可直接进行任何git操作。
 # Hi xxx! You've successfully authenticated, but GitHub does not provide shell access.
@@ -102,7 +102,7 @@ Permission denied (publickey).
 
 可以输入以下命令验证是否生成了密钥以及是否有添加到SSH认证代理中，如果没有就按第二步骤操作一遍。
 
-```bash
+```
 ssh-add -l -E sha256
 # 如果配置失败，则没有任何输出；如果配置成功，则会输出类似以下内容
 # 2048 SHA256:274ffWxgaxq/tSINAykStUL7XWyRNcRTlcST1Ei7gBQ /Users/USERNAME/.ssh/id_rsa (RSA)
@@ -110,7 +110,7 @@ ssh-add -l -E sha256
 
 除了通过ssh-add的方式外，也可以通过设置config文件让SSH认证代理能找到这个密钥文件，从而解决这个问题：
 
-```bash
+```
 vim ~/.ssh/config
 # 打开（如果没有就创建一个）config文件，并输入以下内容。
 # 此外，需要注意，config文件的权限需是600。
@@ -136,7 +136,7 @@ fatal: Authentication failed for 'https://github.com/xxx/xxx.git/'
 
 此时，通过以下命令可以查看到仓库的remote协议是HTTPS协议：
 
-```bash
+```
 git config --get remote.origin.url
 # 如果输出类似以下内容，则说明remote协议是HTTPS协议
 # https://github.com/xxx/xxx.git
@@ -149,7 +149,7 @@ git config --get remote.origin.url
 
 因此，需要将remote协议从HTTPS协议修改为GIT协议。在本地仓库路径下输入以下命令：
 
-```bash
+```
 git remote set-url origin git@github.com:xxx/xxx.git
 ```
 
