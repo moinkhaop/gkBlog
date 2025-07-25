@@ -7,7 +7,7 @@ tags:
   - Git
   - GitHub
 category: 技术
-cover:https://qiniu.tuguo.me/2025-07/1753449828381_1753449828401.png
+cover: https://qiniu.tuguo.me/2025-07/1753449828381_1753449828401.png
 ---
 
 import Image from "@/components/mdx/Image";
@@ -24,19 +24,18 @@ import Image from "@/components/mdx/Image";
 
 本版本最大亮点是新增 Docker容器端口访问自动开启/关闭功能，让你的反代服务安全升级，端口不再暴露，杜绝任何形式的偷窃行为，真正做到安全、稳定、简单。
 
-[image366×366 6.42 KB](https://linux.do/uploads/default/original/4X/9/2/3/9237dd696b0c64dff6151643eeb2adabe86fcec8.webp)
-
-![image](https://linux.do/uploads/default/original/4X/9/2/3/9237dd696b0c64dff6151643eeb2adabe86fcec8.webp)
-
-=================
+<Image
+  src="https://linux.do/uploads/default/original/4X/9/2/3/9237dd696b0c64dff6151643eeb2adabe86fcec8.webp"
+  alt="Nginx反代示意图"
+  width={366}
+  height={366}
+/>
 
 ## 为什么要关闭端口访问？
 
 传统的 Nginx 反代虽然方便，但会导致后端服务端口暴露在公网，极易被扫描和攻击。
 
 现在利用iptables规则自动封禁端口，只允许反代服务器访问，阻止直接IP+端口访问，极大提升安全性。
-
-=================
 
 ## 新功能演示
 
@@ -46,12 +45,9 @@ import Image from "@/components/mdx/Image";
 
 支持批量端口关闭，避免手动配置iptables繁琐出错
 
-=================
-
 ## 关键代码片段
 
-```
-
+```bash
 # 查找占用端口的Docker容器名
 find_container_by_host_port() {
 	port="$1"
@@ -94,17 +90,12 @@ block_container_port() {
 	echo "已阻止IP+端口访问该服务"
 	save_iptables_rules
 }
-
 ```
-
-=================
 
 ## 快速开始
 
-```scss
-
+```bash
 bash <(curl -sL kejilion.sh) fd
-
 ```
 
 然后根据提示输入域名、目标IP、端口，自动帮你完成反代配置及端口封禁！
