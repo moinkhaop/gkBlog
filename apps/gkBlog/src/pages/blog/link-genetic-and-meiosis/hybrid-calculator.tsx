@@ -47,10 +47,14 @@ const HybridCalculator: React.FC<HybridCalculatorProps> = () => {
       <div className="space-y-4">
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium mb-2 text-slate-700 dark:text-slate-300">
+            <label
+              htmlFor="parent1"
+              className="block text-sm font-medium mb-2 text-slate-700 dark:text-slate-300"
+            >
               亲本1基因型:
             </label>
             <input
+              id="parent1"
               type="text"
               value={parent1}
               onChange={(e) => setParent1(e.target.value.toUpperCase())}
@@ -62,10 +66,14 @@ const HybridCalculator: React.FC<HybridCalculatorProps> = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2 text-slate-700 dark:text-slate-300">
+            <label
+              htmlFor="parent2"
+              className="block text-sm font-medium mb-2 text-slate-700 dark:text-slate-300"
+            >
               亲本2基因型:
             </label>
             <input
+              id="parent2"
               type="text"
               value={parent2}
               onChange={(e) => setParent2(e.target.value.toUpperCase())}
@@ -78,6 +86,7 @@ const HybridCalculator: React.FC<HybridCalculatorProps> = () => {
         </div>
 
         <button
+          type="button"
           onClick={calculateCross}
           className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md
                      transition-colors duration-200"
@@ -91,9 +100,9 @@ const HybridCalculator: React.FC<HybridCalculatorProps> = () => {
               后代基因型:
             </h4>
             <div className="grid grid-cols-2 gap-2 mb-4">
-              {results.map((genotype, index) => (
+              {results.map((genotype) => (
                 <div
-                  key={index}
+                  key={genotype}
                   className="px-3 py-2 bg-slate-100 dark:bg-slate-700 rounded text-center
                            text-slate-900 dark:text-slate-100 font-mono"
                 >
