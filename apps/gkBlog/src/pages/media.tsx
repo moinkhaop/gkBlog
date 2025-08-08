@@ -1,18 +1,12 @@
-import MediaContents from "@/contents/media";
-import Page from "@/contents-layouts/Page";
+import type { GetServerSideProps } from "next";
 
-function Media() {
-  return (
-    <Page
-      frontMatter={{
-        title: "书影音",
-        description: "我的 NeoDB 观影标记",
-        caption: "My",
-      }}
-    >
-      <MediaContents />
-    </Page>
-  );
+export const getServerSideProps: GetServerSideProps = async () => {
+  // {{ AURA: Modify - 移除书影音内容，直接返回 404 }}
+  return {
+    notFound: true,
+  };
+};
+
+export default function MediaRemoved() {
+  return null;
 }
-
-export default Media;

@@ -29,8 +29,8 @@ function UpdateContents() {
           href: "https://github.com/enjidev/enji.dev",
         }}
         button2={{
-          title: "查看源 Github [qlAD/gkBlog]",
-          href: "https://github.com/qlAD/gkBlog",
+          title: "查看源 Github [ehhx/gkBlog]",
+          href: "https://github.com/ehhx/gkBlog",
         }}
       /> */}
       <SectionContent>
@@ -67,16 +67,16 @@ function UpdateContents() {
                     },
                     {
                       icon: <GitHubIcon className="h-4 w-4" />,
-                      title: "qlAD/gkBlog - GitHub",
+                      title: "ehhx/gkBlog - GitHub",
                       isActive: currentState === "github",
                       onClick: () => setCurrentState("github"), // 添加 onClick 事件
                     },
                   ]}
                 >
                   {currentState === "github" && (
-                    <a href="https://github.com/qlAD/gkBlog">
+                    <a href="https://github.com/ehhx/gkBlog">
                       <GitHubWireframe
-                        author="qlAD"
+                        author="ehhx"
                         license="MIT"
                         repository="gkBlog"
                         description="一个现代化的 Next.js 个人网站模板，旨在展示个人作品和经历，结合简洁设计与流畅的用户体验。"

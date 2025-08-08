@@ -17,8 +17,7 @@ export default async function handler(
     }
   } catch (err) {
     // eslint-disable-next-line no-console
-    console.log(err);
-
-    res.status(500).json({ message: "Internal Server Error" });
+    if (process.env.NODE_ENV !== "production") console.warn("/api/content error:", err);
+    res.status(200).json({});
   }
 }

@@ -149,7 +149,7 @@ function StatsContents({ initialStats }: StatsContentsProps) {
             <div className="badge status flex flex-wrap gap-2 mt-4">
               <img
                 alt="GitHub License"
-                src="https://img.shields.io/github/license/qlAD/gkBlog?label=%F0%9F%93%9C%20License"
+                src="https://img.shields.io/github/license/ehhx/gkBlog?label=%F0%9F%93%9C%20License"
               />
               <img
                 alt="Website"
@@ -157,23 +157,23 @@ function StatsContents({ initialStats }: StatsContentsProps) {
               />
               <img
                 alt="GitHub deployments"
-                src="https://img.shields.io/github/deployments/qlAD/gkBlog/Production?label=%F0%9F%9A%80%20Production"
+                src="https://img.shields.io/github/deployments/ehhx/gkBlog/Production?label=%F0%9F%9A%80%20Production"
               />
               <img
                 alt="GitHub commit activity"
-                src="https://img.shields.io/github/commit-activity/m/qlAD/gkBlog?label=%F0%9F%93%9D%20%E6%8F%90%E4%BA%A4%E9%A2%91%E7%8E%87"
+                src="https://img.shields.io/github/commit-activity/m/ehhx/gkBlog?label=%F0%9F%93%9D%20%E6%8F%90%E4%BA%A4%E9%A2%91%E7%8E%87"
               />
               <img
                 alt="GitHub last commit"
-                src="https://img.shields.io/github/last-commit/qlAD/gkBlog?label=%F0%9F%93%85%20%E6%9C%80%E8%BF%91%E6%8F%90%E4%BA%A4"
+                src="https://img.shields.io/github/last-commit/ehhx/gkBlog?label=%F0%9F%93%85%20%E6%9C%80%E8%BF%91%E6%8F%90%E4%BA%A4"
               />
               <img
                 alt="GitHub Tag"
-                src="https://img.shields.io/github/v/tag/qlAD/gkBlog?label=%F0%9F%94%96%20Tag"
+                src="https://img.shields.io/github/v/tag/ehhx/gkBlog?label=%F0%9F%94%96%20Tag"
               />
               <img
                 alt="GitHub repo size"
-                src="https://img.shields.io/github/repo-size/qlAD/gkBlog?label=%F0%9F%93%A6%20%E4%BB%93%E5%BA%93%E5%A4%A7%E5%B0%8F"
+                src="https://img.shields.io/github/repo-size/ehhx/gkBlog?label=%F0%9F%93%A6%20%E4%BB%93%E5%BA%93%E5%A4%A7%E5%B0%8F"
               />
             </div>
           </div>

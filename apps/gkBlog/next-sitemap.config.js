@@ -33,7 +33,15 @@ module.exports = {
       return defaultValue(0.6);
     }
 
-    if (path === "/media") {
+    if (path === "/portfolio") {
+      return defaultValue(0.6);
+    }
+
+    if (path === "/gpt") {
+      return defaultValue(0.6);
+    }
+
+    if (path === "/mail") {
       return defaultValue(0.6);
     }
 

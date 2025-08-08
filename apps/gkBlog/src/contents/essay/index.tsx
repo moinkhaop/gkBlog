@@ -43,6 +43,13 @@ function EssayContents() {
 
   return (
     <div className="content-wrapper p-6">
+      {/* 空状态 */}
+      {essays.length === 0 && (
+        <div className="mt-8 rounded-lg border border-dashed p-8 text-center text-slate-600 dark:text-slate-300">
+          暂无回忆录内容
+        </div>
+      )}
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:grid-cols-3">
         {essays.map((essay) => (
           <div

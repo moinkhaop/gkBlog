@@ -2,7 +2,7 @@ import { Menu } from "@headlessui/react";
 import clsx from "clsx";
 import { m } from "framer-motion";
 import Link from "next/link";
-import { forwardRef, useState } from "react";
+import { forwardRef, useState, useEffect } from "react";
 
 import { ChevronRightIcon } from "@/components/Icons";
 
@@ -23,13 +23,13 @@ type LinkRefProps = HTMLAttributes<HTMLAnchorElement> & {
 const LinkRef = forwardRef(
   (
     { href, onClick, children, ...rest }: LinkRefProps,
-    ref: Ref<HTMLAnchorElement>,
+    ref: Ref<HTMLAnchorElement>
   ) => (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <Link href={href} ref={ref} {...rest} onClick={onClick}>
       {children}
     </Link>
-  ),
+  )
 );
 
 LinkRef.displayName = "LinkRef";
@@ -57,25 +57,27 @@ function NavLinkDropdown({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleMenuToggle = (open: boolean) => {
-    if (open) {
-      onOpenClick?.(); // 播放打开菜单声音
-    } else {
-      onCloseClick?.(); // 播放关闭菜单声音
+    if (open !== isMenuOpen) {
+      if (open) {
+        onOpenClick?.(); // 播放打开菜单声音
+      } else {
+        onCloseClick?.(); // 播放关闭菜单声音
+      }
+      setIsMenuOpen(open);
     }
-    setIsMenuOpen(open);
   };
 
   return (
     <div className="relative">
       <Menu>
         {({ open }) => {
-          // 监听 `open` 状态变化并触发对应的回调
-          if (open !== isMenuOpen) {
+          // 使用 useEffect 在下一个渲染周期处理状态变化
+          useEffect(() => {
             handleMenuToggle(open);
-          }
+          }, [open]);
 
           return (
-            <>
+            <div>
               <Menu.Button className={clsx("nav-link nav-link--label ml-2")}>
                 {title}
                 <ChevronRightIcon
@@ -93,7 +95,7 @@ function NavLinkDropdown({
                   animate="show"
                   className={clsx(
                     "border-divider-light absolute top-11 flex w-40 flex-col rounded-2xl border bg-white/70 p-2 backdrop-blur",
-                    "dark:border-divider-dark dark:bg-slate-900/80",
+                    "dark:border-divider-dark dark:bg-slate-900/80"
                   )}
                 >
                   {items.map((item) => (
@@ -113,7 +115,7 @@ function NavLinkDropdown({
                   ))}
                 </Menu.Items>
               )}
-            </>
+            </div>
           );
         }}
       </Menu>

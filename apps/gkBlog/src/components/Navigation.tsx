@@ -8,6 +8,7 @@ import NavIconQuickAccess from "@/components/navigations/NavIconQuickAccess";
 import NavLink from "@/components/navigations/NavLink";
 import NavLinkDropdown from "@/components/navigations/NavLinkDropdown";
 import NavLogo from "@/components/navigations/NavLogo";
+import InlineEmbedModal from "@/components/InlineEmbedModal";
 
 import useOnScroll from "@/hooks/useOnScroll";
 
@@ -22,24 +23,31 @@ function Navbar() {
   const [playOpenSound] = useSound(openSound, { preload: true });
   const [playCloseSound] = useSound(closeSound, { preload: true });
 
-  const myLinks = useMemo(
-    () => [
-      { title: "回忆录", href: "/essay" },
-      { title: "相册集", href: "/album" },
-      { title: "书影音", href: "/media" },
-    ],
-    []
-  );
   const moreLinks = useMemo(
     () => [
       { title: "组件示例", href: "/shortcodes" },
       { title: "友情链接", href: "/links" },
       { title: "留言反馈", href: "/feedback" },
+      { title: "墨陌影视", href: "https://mtv.tuguo.me" },
+      { title: "思维导图", href: "https://mindmap.tuguo.me" },
+      { title: "墨陌文档", href: "https://docs.tuguo.me" },
+      { title: "墨陌转存", href: "https://dyjx.tuguo.me" },
+      { title: "墨陌笔记", href: "https://memos.tuguo.me" },
+      { title: "墨陌网盘", href: "https://apan.tuguo.me" },
     ],
     []
   );
 
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [embed, setEmbed] = useState<{
+    open: boolean;
+    url: string;
+    title: string;
+  }>({
+    open: false,
+    url: "",
+    title: "",
+  });
 
   useEffect(() => {
     setIsSmallScreen(window.innerWidth < 768);
@@ -53,8 +61,8 @@ function Navbar() {
   }, []);
 
   const combinedMoreLinks = useMemo(
-    () => (isSmallScreen ? [...myLinks, ...moreLinks] : moreLinks),
-    [myLinks, moreLinks, isSmallScreen]
+    () => (isSmallScreen ? [...moreLinks] : moreLinks),
+    [moreLinks, isSmallScreen]
   );
 
   return (
@@ -110,13 +118,25 @@ function Navbar() {
                   onClick={() => playClickSound()}
                 />
               </li>
-              <li className={clsx("hidden md:block")} data-accent="blue">
-                <NavLinkDropdown
-                  title="我的"
-                  items={myLinks}
-                  onOpenClick={() => playOpenSound()}
-                  onCloseClick={() => playCloseSound()}
-                  onLinkClick={() => playClickSound()}
+              <li>
+                <NavLink
+                  title="GPT"
+                  href="/ai"
+                  onClick={() => playClickSound()}
+                />
+              </li>
+              <li>
+                <NavLink
+                  title="临时邮箱"
+                  href="/mail"
+                  onClick={() => playClickSound()}
+                />
+              </li>
+              <li>
+                <NavLink
+                  title="回忆录"
+                  href="/essay"
+                  onClick={() => playClickSound()}
                 />
               </li>
               <li className={clsx("")} data-accent="blue">
@@ -154,6 +174,12 @@ function Navbar() {
           </ul>
         </div>
       </div>
+      <InlineEmbedModal
+        open={embed.open}
+        url={embed.url}
+        title={embed.title}
+        onClose={() => setEmbed({ open: false, url: "", title: "" })}
+      />
     </header>
   );
 }

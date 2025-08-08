@@ -1,18 +1,14 @@
-import AlbumContents from "@/contents/album";
-import Page from "@/contents-layouts/Page";
+import type { GetServerSideProps } from "next";
 
-function Album() {
-  return (
-    <Page
-      frontMatter={{
-        title: "相册集",
-        description: "分享生活的点滴",
-        caption: "My",
-      }}
-    >
-      <AlbumContents />
-    </Page>
-  );
+export const getServerSideProps: GetServerSideProps = async () => {
+  return {
+    redirect: {
+      destination: "/portfolio",
+      permanent: true,
+    },
+  };
+};
+
+export default function AlbumRedirect() {
+  return null;
 }
-
-export default Album;

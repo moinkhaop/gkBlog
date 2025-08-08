@@ -27,23 +27,10 @@ function MediaContents() {
   const [activeCategory, setActiveCategory] = useState<string>("全部");
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("/assets/data/neodb/movie.json");
-        if (!response.ok) {
-          throw new Error("网络错误");
-        }
-        const data = await response.json();
-        setMediaData(data.data);
-        setFilteredData(data.data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
+    // {{ AURA: Modify - 清空书影音数据，避免加载已删除的数据 }}
+    setMediaData([]);
+    setFilteredData([]);
+    setLoading(false);
   }, []);
 
   const categories = [
@@ -58,14 +45,8 @@ function MediaContents() {
 
   const handleCategoryChange = (category: string) => {
     setActiveCategory(category);
-    if (category === "全部") {
-      setFilteredData(mediaData);
-    } else {
-      const filtered = mediaData.filter(
-        (media) => media.item.category === category,
-      );
-      setFilteredData(filtered);
-    }
+    // {{ AURA: Modify - 所有分类均为空 }}
+    setFilteredData([]);
   };
 
   const getResourceName = (url: string) => {
@@ -113,6 +94,18 @@ function MediaContents() {
         ))}
       </div>
 
+      {/* 空状态 */}
+      {filteredData.length === 0 && (
+        <div
+          className={clsx(
+            "mt-8 rounded-lg border border-dashed p-8 text-center text-slate-600 dark:text-slate-300"
+          )}
+        >
+          暂无书影音内容
+        </div>
+      )}
+
+      {/* 保留原结构，若将来恢复数据可直接展示 */}
       <div className="movie">
         {filteredData.map((media) => (
           <div
@@ -120,13 +113,13 @@ function MediaContents() {
             className="card"
             onMouseEnter={(e) => {
               const info = e.currentTarget.querySelector(
-                ".movie_details",
+                ".movie_details"
               ) as HTMLElement;
               if (info) info.style.bottom = "0";
             }}
             onMouseLeave={(e) => {
               const info = e.currentTarget.querySelector(
-                ".movie_details",
+                ".movie_details"
               ) as HTMLElement;
               if (info) info.style.bottom = "-400px";
             }}
@@ -135,7 +128,7 @@ function MediaContents() {
               <Image
                 src={`/assets/images/neodb/cover/${media.item.cover_image_url
                   .split("/")
-                  .pop()}`} // 从 URL 中提取文件名并使用本地路径
+                  .pop()}`}
                 alt={media.item.title}
                 width={300}
                 height={150}

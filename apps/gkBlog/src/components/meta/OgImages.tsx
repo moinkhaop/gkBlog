@@ -148,10 +148,10 @@ export function PostOgImage({
         <img
           width="48"
           height="48"
-          src="https://cdn.qladgk.com/images/qlAD.jpg"
+          src="https://qiniu.tuguo.me/2025-08/2_1754657632901.png"
           style={styles.authorAvatar}
         />
-        <div style={styles.authorName}>@qlAD</div>
+        <div style={styles.authorName}>@ehhx</div>
 
         {date && (
           <>
@@ -214,10 +214,10 @@ export function PageOgImage({
         <img
           width="48"
           height="48"
-          src="https://cdn.qladgk.com/images/qlAD.jpg"
+          src="https://qiniu.tuguo.me/2025-08/2_1754657632901.png"
           style={styles.authorAvatar}
         />
-        <div style={styles.authorName}>@qlAD</div>
+        <div style={styles.authorName}>@ehhx</div>
       </div>
       <div
         style={

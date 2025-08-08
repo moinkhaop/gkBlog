@@ -103,11 +103,11 @@ function LinksContents() {
         <p>如果您希望与我交换友链，请使用以下格式申请：</p>
         <Code language="markdown" lines={6}>
           <span className="text-gray-800 dark:text-gray-100">
-            昵称（请勿包含博客等字样）：qlAD
+            昵称（请勿包含博客等字样）：ehhx
             <br />
             网站地址（要求博客地址，请勿提交个人主页）：https://www.qladgk.com/
             <br />
-            头像图片url（请提供尽可能清晰的图片，我会上传到我自己的图床）：https://cdn.qladgk.com/images/qlAD.jpg
+            头像图片url（请提供尽可能清晰的图片，我会上传到我自己的图床）：https://qiniu.tuguo.me/2025-08/2_1754657632901.png
             <br />
             描述：一名小小的计算机爱好者
             <br />

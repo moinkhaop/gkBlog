@@ -26,7 +26,7 @@ interface ShareItemButtonProps extends ShareItemProps {
 const ShareItemButton = forwardRef(
   (
     { active, children, onClick }: ShareItemButtonProps,
-    ref: Ref<HTMLButtonElement>,
+    ref: Ref<HTMLButtonElement>
   ) => (
     <button
       type="button"
@@ -34,13 +34,13 @@ const ShareItemButton = forwardRef(
       className={clsx(
         "flex w-full items-center gap-3 px-4 py-2 text-[13px]",
         ["hover:bg-slate-100", "hover:dark:bg-[#1d263a]"],
-        [active && ["bg-slate-100", "dark:bg-[#1d263a]"]],
+        [active && ["bg-slate-100", "dark:bg-[#1d263a]"]]
       )}
       onClick={onClick}
     >
       {children}
     </button>
-  ),
+  )
 );
 
 interface ShareItemLinkProps extends ShareItemProps {
@@ -51,7 +51,7 @@ interface ShareItemLinkProps extends ShareItemProps {
 const ShareItemLink = forwardRef(
   (
     { href, active, onClick, children }: ShareItemLinkProps,
-    ref: Ref<HTMLAnchorElement>,
+    ref: Ref<HTMLAnchorElement>
   ) => (
     <a
       ref={ref}
@@ -62,12 +62,12 @@ const ShareItemLink = forwardRef(
       className={clsx(
         "flex w-full items-center gap-3 px-4 py-2 text-[13px]",
         ["hover:bg-slate-100", "hover:dark:bg-[#1d263a]"],
-        [active && ["bg-slate-100", "dark:bg-[#1d263a]"]],
+        [active && ["bg-slate-100", "dark:bg-[#1d263a]"]]
       )}
     >
       {children}
     </a>
-  ),
+  )
 );
 
 const animation = {
@@ -106,7 +106,7 @@ function ShareButton({ onItemClick = () => {} }: ShareButtonProps) {
             aria-label="Share"
             className={clsx(
               "relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-slate-200",
-              "dark:bg-[#1d263a]",
+              "dark:bg-[#1d263a]"
             )}
           >
             <ShareIcon className={clsx("h-5 w-5")} />
@@ -120,12 +120,12 @@ function ShareButton({ onItemClick = () => {} }: ShareButtonProps) {
               animate="show"
               className={clsx(
                 "border-divider-light absolute bottom-24 right-2 z-[902] flex w-56 flex-col overflow-hidden rounded-2xl border bg-white/70 pb-2 pt-1 backdrop-blur",
-                "dark:border-divider-dark dark:bg-slate-900/80",
+                "dark:border-divider-dark dark:bg-slate-900/80"
               )}
             >
               <div
                 className={clsx(
-                  "py-3 px-4 text-center text-[13px] text-lg font-bold",
+                  "py-3 px-4 text-center text-[13px] text-lg font-bold"
                 )}
               >
                 分享
@@ -134,7 +134,7 @@ function ShareButton({ onItemClick = () => {} }: ShareButtonProps) {
                 {({ active }) => (
                   <ShareItemLink
                     active={active}
-                    href={`https://twitter.com/intent/tweet?via=qlADgk&url=${currentUrl}`}
+                    href={`https://twitter.com/intent/tweet?via=ehhxgk&url=${currentUrl}`}
                     onClick={handleTwitter}
                   >
                     <TwitterIcon className={clsx("h-4 w-4")} />
@@ -148,7 +148,7 @@ function ShareButton({ onItemClick = () => {} }: ShareButtonProps) {
               <div
                 className={clsx(
                   "border-divider-light my-2 border-t",
-                  "dark:border-divider-dark",
+                  "dark:border-divider-dark"
                 )}
               />
               <Menu.Item>
