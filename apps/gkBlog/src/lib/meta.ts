@@ -173,6 +173,7 @@ export const getNewPosts = async (): Promise<
 
 export const getReactions = async (slug: string): Promise<TReaction> => {
   if (!hasDb) return { CLAPPING: 0, THINKING: 0, AMAZED: 0 };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let result: any = [];
   try {
     result = await prisma.reaction.groupBy({
@@ -219,8 +220,10 @@ export const getSectionMeta = async (
   >
 > => {
   if (!hasDb) return {};
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let result: any = [];
   try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     result = await (prisma.reaction.groupBy as any)({
       by: ["section", "type"],
       _sum: { count: true },
@@ -265,8 +268,10 @@ export const getReactionsBy = async (
   sessionId: string,
 ): Promise<TReaction> => {
   if (!hasDb) return { CLAPPING: 0, THINKING: 0, AMAZED: 0 };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let result: any = [];
   try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     result = await (prisma.reaction.groupBy as any)({
       by: ["type"],
       _sum: { count: true },
@@ -317,7 +322,7 @@ export const setReaction = async ({
   sessionId: string;
   type: ReactionType;
 }) => {
-  if (!hasDb) return null as any;
+  if (!hasDb) return null;
   try {
     const result = await prisma.reaction.create({
       data: {
@@ -336,7 +341,7 @@ export const setReaction = async ({
     return result;
   } catch (e) {
     if (process.env.NODE_ENV !== "production") console.warn("setReaction prisma error:", e);
-    return null as any;
+    return null;
   }
 };
 
@@ -371,7 +376,7 @@ export const setShare = async ({
   type: ShareType;
   sessionId: string;
 }) => {
-  if (!hasDb) return null as any;
+  if (!hasDb) return null;
   try {
     const result = await prisma.share.create({
       data: {
@@ -388,7 +393,7 @@ export const setShare = async ({
     return result;
   } catch (e) {
     if (process.env.NODE_ENV !== "production") console.warn("setShare prisma error:", e);
-    return null as any;
+    return null;
   }
 };
 
@@ -421,7 +426,7 @@ export const setView = async ({
   contentTitle: string;
   sessionId: string;
 }) => {
-  if (!hasDb) return null as any;
+  if (!hasDb) return null;
   try {
     const result = await prisma.view.create({
       data: {
@@ -437,6 +442,6 @@ export const setView = async ({
     return result;
   } catch (e) {
     if (process.env.NODE_ENV !== "production") console.warn("setView prisma error:", e);
-    return null as any;
+    return null;
   }
 };

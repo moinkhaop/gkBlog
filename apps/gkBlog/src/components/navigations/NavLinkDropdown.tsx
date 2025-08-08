@@ -1,12 +1,12 @@
 import { Menu } from "@headlessui/react";
+import { ChevronRightIcon } from "@/components/Icons";
 import clsx from "clsx";
 import { m } from "framer-motion";
 import Link from "next/link";
 import { forwardRef, useCallback, useEffect, useState } from "react";
+
 import type { HTMLAttributes, Ref } from "react";
 import type { UrlObject } from "url";
-
-import { ChevronRightIcon } from "@/components/Icons";
 
 const animation = {
   hide: { opacity: 0, y: -16 },
@@ -46,6 +46,68 @@ interface NavLinkDropdownProps {
   onLinkClick?: () => void;
 }
 
+interface MenuContentProps {
+  open: boolean;
+  title: string;
+  items: Array<NavLink>;
+  onLinkClick?: () => void;
+  handleMenuToggle: (open: boolean) => void;
+}
+
+function MenuContent({
+  open,
+  title,
+  items,
+  onLinkClick,
+  handleMenuToggle,
+}: MenuContentProps) {
+  useEffect(() => {
+    handleMenuToggle(open);
+  }, [open, handleMenuToggle]);
+
+  return (
+    <div>
+      <Menu.Button className={clsx("nav-link nav-link--label ml-2")}>
+        {title}
+        <ChevronRightIcon
+          className={clsx("h-3 w-3 transition-transform duration-200", {
+            "rotate-90": open,
+          })}
+        />
+      </Menu.Button>
+      {open && (
+        <Menu.Items
+          static
+          as={m.div}
+          variants={animation}
+          initial="hide"
+          animate="show"
+          className={clsx(
+            "border-divider-light absolute top-11 flex w-40 flex-col rounded-2xl border bg-white/70 p-2 backdrop-blur",
+            "dark:border-divider-dark dark:bg-slate-900/80"
+          )}
+        >
+          {items.map((item) => (
+            <Menu.Item key={item.href}>
+              {({ active }) => (
+                <LinkRef
+                  href={item.href}
+                  className={clsx("nav-link h-8 text-xs", [
+                    active && "nav-link--focus",
+                  ])}
+                  onClick={onLinkClick}
+                >
+                  {item.title}
+                </LinkRef>
+              )}
+            </Menu.Item>
+          ))}
+        </Menu.Items>
+      )}
+    </div>
+  );
+}
+
 function NavLinkDropdown({
   title,
   items,
@@ -69,57 +131,19 @@ function NavLinkDropdown({
     [isMenuOpen, onOpenClick, onCloseClick]
   );
 
-  const MenuContent = ({ open }: { open: boolean }) => {
-    useEffect(() => {
-      handleMenuToggle(open);
-    }, [open, handleMenuToggle]);
-
-    return (
-      <div>
-        <Menu.Button className={clsx("nav-link nav-link--label ml-2")}>
-          {title}
-          <ChevronRightIcon
-            className={clsx("h-3 w-3 transition-transform duration-200", {
-              "rotate-90": open,
-            })}
-          />
-        </Menu.Button>
-        {open && (
-          <Menu.Items
-            static
-            as={m.div}
-            variants={animation}
-            initial="hide"
-            animate="show"
-            className={clsx(
-              "border-divider-light absolute top-11 flex w-40 flex-col rounded-2xl border bg-white/70 p-2 backdrop-blur",
-              "dark:border-divider-dark dark:bg-slate-900/80"
-            )}
-          >
-            {items.map((item) => (
-              <Menu.Item key={item.href}>
-                {({ active }) => (
-                  <LinkRef
-                    href={item.href}
-                    className={clsx("nav-link h-8 text-xs", [
-                      active && "nav-link--focus",
-                    ])}
-                    onClick={onLinkClick}
-                  >
-                    {item.title}
-                  </LinkRef>
-                )}
-              </Menu.Item>
-            ))}
-          </Menu.Items>
-        )}
-      </div>
-    );
-  };
-
   return (
     <div className="relative">
-      <Menu>{({ open }) => <MenuContent open={open} />}</Menu>
+      <Menu>
+        {({ open }) => (
+          <MenuContent
+            open={open}
+            title={title}
+            items={items}
+            onLinkClick={onLinkClick}
+            handleMenuToggle={handleMenuToggle}
+          />
+        )}
+      </Menu>
     </div>
   );
 }
