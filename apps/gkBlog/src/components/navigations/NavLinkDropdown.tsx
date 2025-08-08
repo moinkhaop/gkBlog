@@ -1,9 +1,10 @@
 import { Menu } from "@headlessui/react";
-import { ChevronRightIcon } from "@/components/Icons";
 import clsx from "clsx";
 import { m } from "framer-motion";
 import Link from "next/link";
 import { forwardRef, useCallback, useEffect, useState } from "react";
+
+import { ChevronRightIcon } from "@/components/Icons";
 
 import type { HTMLAttributes, Ref } from "react";
 import type { UrlObject } from "url";
@@ -58,7 +59,7 @@ function MenuContent({
   open,
   title,
   items,
-  onLinkClick,
+  onLinkClick = () => {},
   handleMenuToggle,
 }: MenuContentProps) {
   useEffect(() => {

@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
 import clsx from "clsx";
+import { useEffect, useMemo, useState } from "react";
 import useSound from "use-sound";
 
 import { TravellingIcon } from "@/components/Icons";
