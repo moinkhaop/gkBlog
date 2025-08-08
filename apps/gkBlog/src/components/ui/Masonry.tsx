@@ -6,8 +6,8 @@ interface MasonryProps {
 }
 
 export default function Masonry({
-  className,
-  children,
+  className = "",
+  children = null,
 }: PropsWithChildren<MasonryProps>) {
   return (
     <div

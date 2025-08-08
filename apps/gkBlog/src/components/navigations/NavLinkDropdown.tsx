@@ -2,12 +2,11 @@ import { Menu } from "@headlessui/react";
 import clsx from "clsx";
 import { m } from "framer-motion";
 import Link from "next/link";
-import { forwardRef, useState, useEffect } from "react";
-
-import { ChevronRightIcon } from "@/components/Icons";
-
+import { forwardRef, useCallback, useEffect, useState } from "react";
 import type { HTMLAttributes, Ref } from "react";
 import type { UrlObject } from "url";
+
+import { ChevronRightIcon } from "@/components/Icons";
 
 const animation = {
   hide: { opacity: 0, y: -16 },
@@ -56,69 +55,71 @@ function NavLinkDropdown({
 }: NavLinkDropdownProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const handleMenuToggle = (open: boolean) => {
-    if (open !== isMenuOpen) {
-      if (open) {
-        onOpenClick?.(); // 播放打开菜单声音
-      } else {
-        onCloseClick?.(); // 播放关闭菜单声音
+  const handleMenuToggle = useCallback(
+    (open: boolean) => {
+      if (open !== isMenuOpen) {
+        if (open) {
+          onOpenClick?.(); // 播放打开菜单声音
+        } else {
+          onCloseClick?.(); // 播放关闭菜单声音
+        }
+        setIsMenuOpen(open);
       }
-      setIsMenuOpen(open);
-    }
+    },
+    [isMenuOpen, onOpenClick, onCloseClick]
+  );
+
+  const MenuContent = ({ open }: { open: boolean }) => {
+    useEffect(() => {
+      handleMenuToggle(open);
+    }, [open, handleMenuToggle]);
+
+    return (
+      <div>
+        <Menu.Button className={clsx("nav-link nav-link--label ml-2")}>
+          {title}
+          <ChevronRightIcon
+            className={clsx("h-3 w-3 transition-transform duration-200", {
+              "rotate-90": open,
+            })}
+          />
+        </Menu.Button>
+        {open && (
+          <Menu.Items
+            static
+            as={m.div}
+            variants={animation}
+            initial="hide"
+            animate="show"
+            className={clsx(
+              "border-divider-light absolute top-11 flex w-40 flex-col rounded-2xl border bg-white/70 p-2 backdrop-blur",
+              "dark:border-divider-dark dark:bg-slate-900/80"
+            )}
+          >
+            {items.map((item) => (
+              <Menu.Item key={item.href}>
+                {({ active }) => (
+                  <LinkRef
+                    href={item.href}
+                    className={clsx("nav-link h-8 text-xs", [
+                      active && "nav-link--focus",
+                    ])}
+                    onClick={onLinkClick}
+                  >
+                    {item.title}
+                  </LinkRef>
+                )}
+              </Menu.Item>
+            ))}
+          </Menu.Items>
+        )}
+      </div>
+    );
   };
 
   return (
     <div className="relative">
-      <Menu>
-        {({ open }) => {
-          // 使用 useEffect 在下一个渲染周期处理状态变化
-          useEffect(() => {
-            handleMenuToggle(open);
-          }, [open]);
-
-          return (
-            <div>
-              <Menu.Button className={clsx("nav-link nav-link--label ml-2")}>
-                {title}
-                <ChevronRightIcon
-                  className={clsx("h-3 w-3 transition-transform duration-200", {
-                    "rotate-90": open,
-                  })}
-                />
-              </Menu.Button>
-              {open && (
-                <Menu.Items
-                  static
-                  as={m.div}
-                  variants={animation}
-                  initial="hide"
-                  animate="show"
-                  className={clsx(
-                    "border-divider-light absolute top-11 flex w-40 flex-col rounded-2xl border bg-white/70 p-2 backdrop-blur",
-                    "dark:border-divider-dark dark:bg-slate-900/80"
-                  )}
-                >
-                  {items.map((item) => (
-                    <Menu.Item key={item.href}>
-                      {({ active }) => (
-                        <LinkRef
-                          href={item.href}
-                          className={clsx("nav-link h-8 text-xs", [
-                            active && "nav-link--focus",
-                          ])}
-                          onClick={onLinkClick}
-                        >
-                          {item.title}
-                        </LinkRef>
-                      )}
-                    </Menu.Item>
-                  ))}
-                </Menu.Items>
-              )}
-            </div>
-          );
-        }}
-      </Menu>
+      <Menu>{({ open }) => <MenuContent open={open} />}</Menu>
     </div>
   );
 }

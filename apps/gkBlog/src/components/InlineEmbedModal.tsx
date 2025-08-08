@@ -48,6 +48,7 @@ export default function InlineEmbedModal({ open, url, title, onClose }: Props) {
                   新窗口打开
                 </a>
                 <button
+                  type="button"
                   onClick={onClose}
                   className="rounded bg-slate-100 px-2 py-1 text-xs hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700"
                   aria-label="关闭"

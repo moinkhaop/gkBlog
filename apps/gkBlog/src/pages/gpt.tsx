@@ -1,15 +1,13 @@
+import type { GetServerSideProps } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import type { GetServerSideProps } from "next";
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  return {
-    redirect: {
-      destination: "/ai",
-      permanent: true,
-    },
-  };
-};
+export const getServerSideProps: GetServerSideProps = async () => ({
+  redirect: {
+    destination: "/ai",
+    permanent: true,
+  },
+});
 
 export default function RedirectGPT() {
   const title = "GPT";

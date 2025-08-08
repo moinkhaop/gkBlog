@@ -20,9 +20,9 @@ interface MediaData {
 }
 
 function MediaContents() {
-  const [mediaData, setMediaData] = useState<MediaData[]>([]);
+  const [, setMediaData] = useState<MediaData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error] = useState<string | null>(null);
   const [filteredData, setFilteredData] = useState<MediaData[]>([]);
   const [activeCategory, setActiveCategory] = useState<string>("全部");
 

@@ -1,6 +1,6 @@
 import clsx from "clsx";
-import { useEffect, useState } from "react";
 import type { GetServerSideProps } from "next";
+import { useEffect, useState } from "react";
 
 import Page from "@/contents-layouts/Page";
 
@@ -11,9 +11,9 @@ const TOOL_MAP: Record<ToolKey, { title: string; url: string }> = {
   mail: { title: "临时邮箱", url: "https://ehhx.live" },
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  return { notFound: true };
-};
+export const getServerSideProps: GetServerSideProps = async () => ({
+  notFound: true,
+});
 
 export default function ToolsRemoved() {
   const [active, setActive] = useState<ToolKey>("gpt");

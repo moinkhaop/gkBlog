@@ -43,7 +43,9 @@ export const getAllContentMeta = async (): Promise<
       )
       : {};
   } catch (e) {
-    if (process.env.NODE_ENV !== "production") console.warn("getAllContentMeta prisma error:", e);
+    if (process.env.NODE_ENV !== "production") {
+      // console.warn("getAllContentMeta prisma error:", e);
+    }
     return {};
   }
 };
@@ -61,7 +63,9 @@ export const getContentMeta = async (
     });
     return { shares: result?._count.shares || 0, views: result?._count.views || 0 };
   } catch (e) {
-    if (process.env.NODE_ENV !== "production") console.warn("getContentMeta prisma error:", e);
+    if (process.env.NODE_ENV !== "production") {
+      // console.warn("getContentMeta prisma error:", e);
+    }
     return { shares: 0, views: 0 };
   }
 };
@@ -117,7 +121,9 @@ export const getContentActivity = async (): Promise<TContentActivity[]> => {
     const transformed = await jsonata(expression).evaluate(result);
     return transformed || [];
   } catch (e) {
-    if (process.env.NODE_ENV !== "production") console.warn("getContentActivity transform error:", e);
+    if (process.env.NODE_ENV !== "production") {
+      // console.warn("getContentActivity transform error:", e);
+    }
     return [];
   }
 };
@@ -175,7 +181,9 @@ export const getReactions = async (slug: string): Promise<TReaction> => {
       where: { content: { slug } },
     });
   } catch (e) {
-    if (process.env.NODE_ENV !== "production") console.warn("getReactions prisma error:", e);
+    if (process.env.NODE_ENV !== "production") {
+      // console.warn("getReactions prisma error:", e);
+    }
     return { CLAPPING: 0, THINKING: 0, AMAZED: 0 };
   }
 
@@ -220,7 +228,9 @@ export const getSectionMeta = async (
       orderBy: { section: "asc" },
     });
   } catch (e) {
-    if (process.env.NODE_ENV !== "production") console.warn("getSectionMeta prisma error:", e);
+    if (process.env.NODE_ENV !== "production") {
+      // console.warn("getSectionMeta prisma error:", e);
+    }
     return {};
   }
 
@@ -263,7 +273,9 @@ export const getReactionsBy = async (
       where: { sessionId, content: { slug } },
     });
   } catch (e) {
-    if (process.env.NODE_ENV !== "production") console.warn("getReactionsBy prisma error:", e);
+    if (process.env.NODE_ENV !== "production") {
+      // console.warn("getReactionsBy prisma error:", e);
+    }
     return { CLAPPING: 0, THINKING: 0, AMAZED: 0 };
   }
 
@@ -339,7 +351,9 @@ export const getSharesBy = async (
     });
     return result || 0;
   } catch (e) {
-    if (process.env.NODE_ENV !== "production") console.warn("getSharesBy prisma error:", e);
+    if (process.env.NODE_ENV !== "production") {
+      // console.warn("getSharesBy prisma error:", e);
+    }
     return 0;
   }
 };
@@ -389,7 +403,9 @@ export const getViewsBy = async (
     });
     return result || 0;
   } catch (e) {
-    if (process.env.NODE_ENV !== "production") console.warn("getViewsBy prisma error:", e);
+    if (process.env.NODE_ENV !== "production") {
+      // console.warn("getViewsBy prisma error:", e);
+    }
     return 0;
   }
 };

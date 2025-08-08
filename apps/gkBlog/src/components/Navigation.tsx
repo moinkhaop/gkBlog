@@ -3,13 +3,12 @@ import { useEffect, useMemo, useState } from "react";
 import useSound from "use-sound";
 
 import { TravellingIcon } from "@/components/Icons";
+import InlineEmbedModal from "@/components/InlineEmbedModal";
 import NavIcon from "@/components/navigations/NavIcon";
 import NavIconQuickAccess from "@/components/navigations/NavIconQuickAccess";
 import NavLink from "@/components/navigations/NavLink";
 import NavLinkDropdown from "@/components/navigations/NavLinkDropdown";
 import NavLogo from "@/components/navigations/NavLogo";
-import InlineEmbedModal from "@/components/InlineEmbedModal";
-
 import useOnScroll from "@/hooks/useOnScroll";
 
 const clickSfx = "/assets/sounds/click.mp3";
