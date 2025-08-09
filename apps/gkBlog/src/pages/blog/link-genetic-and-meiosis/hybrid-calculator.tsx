@@ -1,24 +1,19 @@
 import React, { useState } from "react";
 
-interface HybridCalculatorProps {}
-
-const HybridCalculator: React.FC<HybridCalculatorProps> = () => {
+// 移除空的 props 接口以满足 @typescript-eslint/no-empty-interface 规则
+// 使用函数声明形式以满足 airbnb 的 react/function-component-definition 规则
+export function HybridCalculator() {
   const [parent1, setParent1] = useState<string>("AA");
   const [parent2, setParent2] = useState<string>("aa");
   const [results, setResults] = useState<string[]>([]);
 
+  // 使用数组组合而不是 for...of 避免 no-restricted-syntax 对迭代器的限制
   const calculateCross = () => {
     const parent1Alleles = parent1.split("");
     const parent2Alleles = parent2.split("");
-    const offspring: string[] = [];
-
-    for (const allele1 of parent1Alleles) {
-      for (const allele2 of parent2Alleles) {
-        offspring.push(`${allele1}${allele2}`);
-      }
-    }
-
-    setResults(offspring);
+    setResults(
+      parent1Alleles.flatMap((a) => parent2Alleles.map((b) => `${a}${b}`))
+    );
   };
 
   const getPhenotype = (genotype: string): string => {
@@ -46,10 +41,11 @@ const HybridCalculator: React.FC<HybridCalculatorProps> = () => {
 
       <div className="space-y-4">
         <div className="grid grid-cols-2 gap-4">
+          {/* 使用 htmlFor 显式关联控件，符合 jsx-a11y/label-has-associated-control */}
           <div>
             <label
               htmlFor="parent1"
-              className="block text-sm font-medium mb-2 text-slate-700 dark:text-slate-300"
+              className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300"
             >
               亲本1基因型:
             </label>
@@ -64,11 +60,10 @@ const HybridCalculator: React.FC<HybridCalculatorProps> = () => {
               placeholder="如: AA, Aa, aa"
             />
           </div>
-
           <div>
             <label
               htmlFor="parent2"
-              className="block text-sm font-medium mb-2 text-slate-700 dark:text-slate-300"
+              className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300"
             >
               亲本2基因型:
             </label>
@@ -130,6 +125,6 @@ const HybridCalculator: React.FC<HybridCalculatorProps> = () => {
       </div>
     </div>
   );
-};
+}
 
 export default HybridCalculator;

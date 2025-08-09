@@ -11,6 +11,7 @@ import PostPreview from "@/contents/blog/PostPreview";
 import Page from "@/contents-layouts/Page";
 
 import type { TPostFrontMatter } from "@/types";
+import { buildPagination } from "@/utils/pagination";
 
 const POSTS_PER_PAGE = 5;
 
@@ -62,51 +63,40 @@ export default function CategoryPage({ category, posts }: CategoryPageProps) {
     router.push(`/blog/category/${category}?page=${page}`);
   };
 
-  const renderPageButtons = () => {
-    const buttons = [];
-    for (let i = 1; i <= totalPages; i += 1) {
-      if (
-        i === 1 ||
-        i === totalPages ||
-        (i >= currentPage - 1 && i <= currentPage + 1)
-      ) {
-        buttons.push(
-          <button
-            type="button"
-            key={i}
-            style={{
-              padding: "0 15px",
-              backgroundColor: i === currentPage ? "#3B82F6" : "#E5E7EB",
-              color: i === currentPage ? "white" : "black",
-              border: "none",
-              borderRadius: "12px",
-              cursor: "pointer",
-              transition: "background-color 0.3s",
-            }}
-            onClick={() => handlePageChange(i)}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "#D1D5DB";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor =
-                i === currentPage ? "#3B82F6" : "#E5E7EB";
-            }}
-          >
-            {i}
-          </button>
-        );
-      } else if (
-        buttons[buttons.length - 1]?.key !== "..." &&
-        (i === 2 ||
-          i === totalPages - 1 ||
-          i === currentPage - 2 ||
-          i === currentPage + 2)
-      ) {
-        buttons.push(<span key="...">...</span>);
-      }
-    }
-    return buttons;
-  };
+  const renderPageButtons = () =>
+    buildPagination({
+      current: currentPage,
+      total: totalPages,
+      sibling: 1,
+    }).map((token) =>
+      token === "..." ? (
+        <span key={`ellipsis-${Math.random().toString(36).slice(2)}`}>...</span>
+      ) : (
+        <button
+          type="button"
+          key={token}
+          style={{
+            padding: "0 15px",
+            backgroundColor: token === currentPage ? "#3B82F6" : "#E5E7EB",
+            color: token === currentPage ? "white" : "black",
+            border: "none",
+            borderRadius: "12px",
+            cursor: "pointer",
+            transition: "background-color 0.3s",
+          }}
+          onClick={() => handlePageChange(token)}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = "#D1D5DB";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor =
+              token === currentPage ? "#3B82F6" : "#E5E7EB";
+          }}
+        >
+          {token}
+        </button>
+      )
+    );
 
   return (
     <Page

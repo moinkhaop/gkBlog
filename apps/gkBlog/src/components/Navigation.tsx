@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
-
+// 按 simple-import-sort 规则重新排序第三方依赖 import
 import clsx from "clsx";
+import { useEffect, useMemo, useState } from "react";
 import useSound from "use-sound";
 
 import { TravellingIcon } from "@/components/Icons";

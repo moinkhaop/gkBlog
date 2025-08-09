@@ -12,7 +12,8 @@ module.exports = {
   ],
   parser: "@typescript-eslint/parser",
   rules: {
-    "@next/next/no-html-link-for-pages": ["error", "apps/gkBlog/src/pages/"],
+    // 修正路径：在 gkBlog 子包内运行 ESLint 时 cwd 为 apps/gkBlog，原配置多写了一层 apps/gkBlog/ 导致找不到目录
+    "@next/next/no-html-link-for-pages": ["error", "src/pages/"],
     "no-underscore-dangle": ["error", { allow: ["_count", "_sum"] }],
     "import/extensions": "off",
     "import/order": "off",

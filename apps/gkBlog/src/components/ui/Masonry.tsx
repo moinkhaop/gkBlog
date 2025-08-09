@@ -1,6 +1,6 @@
-import type { PropsWithChildren } from "react";
-
+// 调整 import 顺序（外部依赖字母序）
 import clsx from "clsx";
+import type { PropsWithChildren } from "react";
 
 interface MasonryProps {
   className?: string;

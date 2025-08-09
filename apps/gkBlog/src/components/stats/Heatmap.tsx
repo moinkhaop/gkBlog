@@ -31,7 +31,7 @@ function createDay({
     count > 0 && count < 1000 && "heatmap_day_level_1",
     count >= 1000 && count < 2000 && "heatmap_day_level_2",
     count >= 2000 && count < 3000 && "heatmap_day_level_3",
-    count >= 3000 && "heatmap_day_level_4",
+    count >= 3000 && "heatmap_day_level_4"
   );
 
   day.setAttribute("data-date", date);
@@ -112,11 +112,14 @@ function Heatmap({ data }: HeatmapProps) {
     const numMonths = window.innerWidth < 768 ? 6 : 12;
     const startMonthIndex = (startDate.getMonth() - (numMonths - 1) + 12) % 12;
 
-    for (let i = startMonthIndex; i < startMonthIndex + numMonths; i += 1) {
+    Array.from(
+      { length: numMonths },
+      (_, offset) => startMonthIndex + offset
+    ).forEach((i) => {
       const monthSpan = document.createElement("span");
       monthSpan.textContent = monthNames[i % 12];
       monthDiv.appendChild(monthSpan);
-    }
+    });
     container.appendChild(monthDiv);
 
     // Create heatmap grid
