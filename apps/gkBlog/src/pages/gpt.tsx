@@ -1,4 +1,4 @@
-// 重新排序 import，符合 simple-import-sort/imports
+// Packages
 import Head from "next/head";
 import type { GetServerSideProps } from "next";
 import { useEffect, useState } from "react";

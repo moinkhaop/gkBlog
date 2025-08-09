@@ -1,17 +1,18 @@
+// Packages
 import clsx from "clsx";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
-
-import useContentMeta from "@/hooks/useContentMeta";
-
-import { getPostsByCategory, getSortedPosts } from "@/lib/posts";
-
-import PostPreview from "@/contents/blog/PostPreview";
+// Components
 import Page from "@/contents-layouts/Page";
-
-import type { TPostFrontMatter } from "@/types";
+import PostPreview from "@/contents/blog/PostPreview";
+// Hooks
+import useContentMeta from "@/hooks/useContentMeta";
+// Lib / utils
+import { getPostsByCategory, getSortedPosts } from "@/lib/posts";
 import { buildPagination } from "@/utils/pagination";
+// Types
+import type { TPostFrontMatter } from "@/types";
 
 const POSTS_PER_PAGE = 5;
 

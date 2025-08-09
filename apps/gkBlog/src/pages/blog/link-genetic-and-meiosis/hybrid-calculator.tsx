@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-// 移除空的 props 接口以满足 @typescript-eslint/no-empty-interface 规则
-// 使用函数声明形式以满足 airbnb 的 react/function-component-definition 规则
-export function HybridCalculator() {
+// 组件：遗传杂交计算器 (页面需要默认导出)
+function HybridCalculator() {
   const [parent1, setParent1] = useState<string>("AA");
   const [parent2, setParent2] = useState<string>("aa");
   const [results, setResults] = useState<string[]>([]);
@@ -41,14 +40,12 @@ export function HybridCalculator() {
 
       <div className="space-y-4">
         <div className="grid grid-cols-2 gap-4">
-          {/* 使用 htmlFor 显式关联控件，符合 jsx-a11y/label-has-associated-control */}
-          <div>
-            <label
-              htmlFor="parent1"
-              className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300"
-            >
-              亲本1基因型:
-            </label>
+          {/* label 内嵌 input 并保留 htmlFor，兼容严格 a11y 规则 */}
+          <label
+            htmlFor="parent1"
+            className="block text-sm font-medium text-slate-700 dark:text-slate-300"
+          >
+            <span className="mb-2 block">亲本1基因型:</span>
             <input
               id="parent1"
               type="text"
@@ -59,14 +56,12 @@ export function HybridCalculator() {
                          focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="如: AA, Aa, aa"
             />
-          </div>
-          <div>
-            <label
-              htmlFor="parent2"
-              className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300"
-            >
-              亲本2基因型:
-            </label>
+          </label>
+          <label
+            htmlFor="parent2"
+            className="block text-sm font-medium text-slate-700 dark:text-slate-300"
+          >
+            <span className="mb-2 block">亲本2基因型:</span>
             <input
               id="parent2"
               type="text"
@@ -77,7 +72,7 @@ export function HybridCalculator() {
                          focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="如: AA, Aa, aa"
             />
-          </div>
+          </label>
         </div>
 
         <button

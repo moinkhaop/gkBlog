@@ -1,15 +1,16 @@
+// Packages
 import clsx from "clsx";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-
-import Sidebar from "@/components/sidebar/Sidebar";
-
-import useContentMeta from "@/hooks/useContentMeta";
-
+// Components
 import PostPreview from "@/contents/blog/PostPreview";
-
-import type { TPostFrontMatter } from "@/types";
+import Sidebar from "@/components/sidebar/Sidebar";
+// Hooks
+import useContentMeta from "@/hooks/useContentMeta";
+// Lib / utils
 import { buildPagination } from "@/utils/pagination";
+// Types
+import type { TPostFrontMatter } from "@/types";
 
 const PINNED_POST = "how-i-built-my-blog";
 const POSTS_PER_PAGE = 10;

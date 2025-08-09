@@ -1,8 +1,8 @@
-// 调整 import 顺序：第三方依赖后空行再到内部模块
+// Packages
 import clsx from "clsx";
 import type { GetServerSideProps } from "next";
 import { useEffect, useState } from "react";
-
+// Components
 import Page from "@/contents-layouts/Page";
 
 type ToolKey = "gpt" | "mail";
