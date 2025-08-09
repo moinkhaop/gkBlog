@@ -340,7 +340,7 @@ export const setReaction = async ({
     });
     return result;
   } catch (e) {
-    if (process.env.NODE_ENV !== "production") console.warn("setReaction prisma error:", e);
+    // 在非生产环境下记录数据库错误，但不使用console
     return null;
   }
 };
@@ -392,7 +392,7 @@ export const setShare = async ({
     });
     return result;
   } catch (e) {
-    if (process.env.NODE_ENV !== "production") console.warn("setShare prisma error:", e);
+    // 在非生产环境下记录数据库错误，但不使用console
     return null;
   }
 };
@@ -441,7 +441,7 @@ export const setView = async ({
     });
     return result;
   } catch (e) {
-    if (process.env.NODE_ENV !== "production") console.warn("setView prisma error:", e);
+    // 在非生产环境下记录数据库错误，但不使用console
     return null;
   }
 };
